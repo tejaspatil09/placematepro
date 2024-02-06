@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Predictor</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="assets/css/app.css" rel="stylesheet">
+        <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3 px-5">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" src="assets/images/app-logo.png" />
+                </a>
+                <form class="d-flex">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Predictor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="row mt-4 mb-4">
+                <div class="col-12 app-heading">
+                    <h4 class="text-secondary">Placement Predictor <sup>AI Powered</sup></h4>
+                </div>
+            </div>
+            <form class="app-form">
+                <fieldset class="app-fieldset">
+                    <legend>Educational Skills:</legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="field1" class="form-label">Academic Performance</label>
+                            <input type="number" class="form-control" name="field1" id="field1">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field2" class="form-label">Technical Skills</label>
+                            <input type="number" class="form-control" name="field2" id="field2">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field3" class="form-label">Core Knowledge
+                            </label>
+                            <input type="number" class="form-control" name="field3" id="field3">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field4" class="form-label">Puzzle Solving</label>
+                            <input type="number" class="form-control" name="field4" id="field4">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field5" class="form-label">Programming Skills</label>
+                            <input type="number" class="form-control" name="field5" id="field5">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field6" class="form-label">Project and Training</label>
+                            <input type="number" class="form-control" name="field6" id="field6">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field7" class="form-label">Internship</label>
+                            <input type="number" class="form-control" name="field7" id="field7">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="field8" class="form-label">Backlog</label>
+                            <input type="number" class="form-control" name="field8" id="field8">
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="app-fieldset mt-4">
+                    <legend>Educational Skills:</legend>
+                    <div class="row">
+                        <div class="col-md-6 mt-1">
+                            <label for="field9" class="form-label">Coding Skills</label>
+                            <input type="number" class="form-control" name="field9" id="field9">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field10" class="form-label">Aptitude Skills</label>
+                            <input type="number" class="form-control" name="field10" id="field10">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field11" class="form-label">Communication Skills:*
+                            </label>
+                            <input type="number" class="form-control" name="field11" id="field11">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field12" class="form-label">Presentation Skills</label>
+                            <input type="number" class="form-control" name="field12" id="field12">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field13" class="form-label">Management Skills</label>
+                            <input type="number" class="form-control" name="field13" id="field13">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field14" class="form-label">Project Experience</label>
+                            <input type="number" class="form-control" name="field14" id="field14">
+                        </div>
+                        <div class="col-md-6 mt-1">
+                            <label for="field15" class="form-label">Training</label>
+                            <input type="number" class="form-control" name="field15" id="field15">
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="row mt-4">
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-primary">Predict Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <footer class="app-footer d-flex flex-wrap justify-content-between align-items-center p-5 py-3 my-1 border-top">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="text-muted">© 2024 Plcemate Pro, Inc</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3"><a class="text-muted" href="#">
+                    <a href="https://www.facebook.com/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <i class="social-icons fa-brands fa-square-facebook facebook-ic"></i>
+                    </a>    
+                </li>
+                <li class="ms-3">
+                    <a href="https://www.instagram.com/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <i class="social-icons fa-brands fa-instagram insta-ic"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a href="https://www.twitter.com/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <i class="social-icons fa-brands fa-square-x-twitter twitter-ic"></i>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a href="https://www.linkedin.com/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                        <i class="social-icons fa-brands fa-linkedin linkedin-ic"></i>
+                    </a>
+                </li>
+            </ul>
+        </footer>
+
+        <script>
+            $(document).ready(function(){
+                
+            });
+        </script>
+    </body>
+</html>

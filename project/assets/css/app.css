@@ -1,0 +1,66 @@
+.logo {
+	width: 180px;
+}
+.nav-link.active {
+	color: #985eb5 !important;
+	font-weight: bold;
+}
+
+.social-icons{
+	font-size: 24px !important;
+}
+
+
+.app-fieldset {
+	padding: 20px;
+	border: 1px solid #d0d0d0;
+	border-radius: 7px;
+	/* box-shadow: 0px 0px 6px 2px #ececec; */
+}
+
+.app-fieldset legend {
+	float: none;
+	margin: 0;
+	padding: 0 3px;
+	font-size: 17px;
+	background: #fff;
+	width: auto;
+	border-radius: 10px;
+	color: #666;
+}
+
+.app-heading sup {
+	font-size: 12px;
+	color: #985eb5;
+	border: 1px solid;
+	border-radius: 6px;
+	padding: 0px 4px;
+	font-weight: 600;
+}
+.app-form label {
+	color: #985eb5;
+}
+.app-form input {
+	color: #5c5c5c !important;
+}
+.btn-primary{
+    background-color: #985eb5 !important;
+    border-color: inherit !important;
+}
+/*Footer*/
+
+.facebook-ic {
+	color: #0d8bf1;
+}
+
+.insta-ic{
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+            /* Also define standard property for compatibility */
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.linkedin-ic{
+    color:#0077b5;
+}
