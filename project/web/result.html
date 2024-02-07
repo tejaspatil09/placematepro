@@ -6,9 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="assets/css/app.css" rel="stylesheet">
         <link href="assets/css/fontawesome/css/all.min.css" rel="stylesheet">
+        <link href="assets/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="assets/css/bootstrap.min.css" rel="stylesheet">
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3 px-5">
@@ -26,7 +28,10 @@
                                 <a class="nav-link"  href="index.html">Predictor</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">About</a>
+                                <a class="nav-link active" aria-current="page" href="#">Results</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="team.html">Our Team</a>
@@ -36,26 +41,18 @@
                 </form>
             </div>
         </nav>
+        
+        <div class="container-fluid table-container">
+            <table id="result_table" class="display" ></table>
+        </div>
 
-        <section class="bg-light py-3 py-md-5 py-xl-8">
-            <div class="container">
-                <div class="row justify-content-md-center">
-                    <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
-                    <h2 class="mb-4 display-5 text-center">About Us</h2>
-                    <p class="text-secondary mb-5 text-center lead fs-4">Welcome to PlaceMatePro, where we're reshaping placements with cutting-edge technology. Our mission is simple: to empower individuals and organizations with accurate and personalized placement predictions. Backed by advanced data science and machine learning, we're committed to revolutionizing the way candidates and employers connect. Join us on our journey to redefine placements with innovation and insight.</p>
-                    <hr class="w-50 mx-auto mb-5 mb-xl-9 border-dark-subtle">
-                </div>
-            </div>
-            </div>
-        
-        
-        <footer class="app-footer d-flex flex-wrap justify-content-between align-items-center p-5 py-3 my-1 border-top">
+        <footer class="app-footer d-flex flex-wrap justify-content-between align-items-center p-5 py-1 my-0 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <span class="text-muted">© 2024 Plcemate Pro, Inc</span>
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-muted" href="#">
+                <li class="ms-3">
                     <a href="https://www.facebook.com/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                         <i class="social-icons fa-brands fa-square-facebook facebook-ic"></i>
                     </a>    
@@ -80,7 +77,49 @@
 
         <script>
             $(document).ready(function(){
-                
+        
+                $.ajax({
+                    url:'http://localhost:8081/result',
+                    crossDomain: true,
+                    dataType: 'JSON',
+                    success:function(resp){
+                        if(resp.data!=undefined && Object.keys(resp.data.record).length > 0){
+                            var htmlText = "<thead><tr>";
+                            // Iterate headings
+                            Object.keys(resp.data.cols).map( (index) =>{
+                                htmlText += '<th>'+resp.data.cols[index]+'<th>';
+                            });
+
+                            htmlText += '</tr></thead>';
+                            // Iterate rows
+                            Object.keys(resp.data.record).map( (value, index) =>{
+                                htmlText += '<tbody><tr>';
+                                // Iterate columns
+                                Object.keys(resp.data.record[value]).map( (key) =>{
+                                    // console.log(resp.data.record[value2]);
+                                    htmlText += '<td>'+resp.data.record[value][key]+'<td>';
+                                });
+                                htmlText += '</tr></tbody>';
+                            });
+
+                            $('#result_table').html(htmlText);
+                            setTimeout(()=>{
+                                $('#result_table').DataTable( {
+                                    responsive: true,
+                                    rowReorder: {
+                                        selector: 'td:nth-child(2)'
+                                    }
+                                } );;
+                            },100)
+
+                        }
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                })
+
+                // 
             });
         </script>
     </body>
