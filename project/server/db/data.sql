@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 07, 2024 at 07:37 PM
+-- Generation Time: Feb 08, 2024 at 08:14 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `data` (
   `core_knowledge` int(11) NOT NULL,
   `puzzle_solving` int(11) NOT NULL,
   `programming_skills` int(11) NOT NULL,
+  `group_discussion_score` int(11) NOT NULL,
   `project` int(11) NOT NULL,
   `internship` int(11) NOT NULL,
   `backlog` int(11) NOT NULL,
@@ -47,9 +48,10 @@ CREATE TABLE IF NOT EXISTS `data` (
   `presentation_skills` int(11) NOT NULL,
   `english_proficiency` int(11) NOT NULL,
   `management_skills` int(11) NOT NULL,
-  `result` int(11) NOT NULL,
+  `training` int(11) NOT NULL,
+  `result` float NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

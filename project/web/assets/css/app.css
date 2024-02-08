@@ -58,6 +58,20 @@
 	background-color: #f5f5f5;
 }
 
+@media only screen and (max-width:990px){
+	#navbarSupportedContent {
+		position: absolute;
+		right: 57px;
+		top: 78px;
+		background: white;
+		width: 86%;
+		padding: 0 10px;
+		box-shadow: 0px 0px 1px 3px #f0f0f0;
+		border-radius: 5px;
+		z-index: 1;
+	}
+}
+
 .facebook-ic {
 	color: #0d8bf1;
 }
@@ -73,14 +87,11 @@
 .linkedin-ic{
     color:#0077b5;
 }
-/* 
+ 
+/* Table */
 th,td {
 	text-transform: capitalize;
 }
-
-#result_table{
-	overflow: auto;
-} */
 
 /* Loader */
 .loader{
@@ -101,4 +112,40 @@ th,td {
 	width: 170px;
 	height: 170px;
 	margin: auto;
+}
+
+/* progress */
+.progress {
+	position: relative;
+	height: 100% !important;
+	background-color: transparent !important;
+	margin: 0 auto;
+}
+.progress-data {
+	position: absolute;
+	/* left: 54px; */
+	top: 60px;
+	font-size: 18px;
+	font-weight: 600;
+	width: 100%;
+	text-align: center;
+	/* color: var(--app-color-secondary); */
+}
+.progress-wrapper {
+	margin: 20px;
+	margin: 10px auto;
+	min-height: 400px;
+	display: block;
+	position: relative;
+	display: flex;
+}
+
+.progress1 .progress-data{
+	color:red;
+}
+.progress2 .progress-data{
+	color:green;
+}
+.progress3 .progress-data{
+	color:var(--app-color-primary);
 }
