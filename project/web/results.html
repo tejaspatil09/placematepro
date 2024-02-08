@@ -13,6 +13,11 @@
         <script src="assets/js/jquery.dataTables.min.js"></script>
     </head>
     <body>
+        <div class="container-fluid loader">
+            <div class="loader-body">
+                <img src="assets/images/loader.gif" />
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light pt-3 pb-3 px-5">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
@@ -46,6 +51,7 @@
                 <div class="row justify-content-md-center">
                     <div class="col-12">
                         <h2 class="mb-4 display-5 text-center">Results</h2>
+                        <div class="response-msg"></div>
                         <table id="result_table" ></table>
                     </div>
                 </div>
@@ -82,12 +88,14 @@
         </footer>
 
         <script>
-            $(document).ready(function(){
-        
+            function loadData(){
                 $.ajax({
                     url:'http://localhost:8081/result?filter=name,class,result',
                     crossDomain: true,
                     dataType: 'JSON',
+                    beforeSend: function(){
+                        $('.loader').show();
+                    },
                     success:function(resp){
                         if(resp.data!=undefined && Object.keys(resp.data.record).length > 0){
                             var htmlText = "<thead><tr>";
@@ -115,17 +123,26 @@
                                     rowReorder: {
                                         selector: 'td:nth-child(2)'
                                     }
-                                } );;
+                                } );
+                                $('.loader').hide();
                             },100)
 
                         }
                     },
                     error: function(e){
                         console.log(e);
+                        $('.loader').hide();
+                        $('.response-msg').html('<p class="text-secondary mb-5 text-center lead fs-4">Something Wents To Wrong! <br> Please Make Sure API Is Live And Try Again.</p><p class="text-secondary mb-5 text-center lead fs-4"><button type="button" class="btn btn-primary" id="refresh-btn">Refresh Now</button></p>');
                     }
-                })
+                });
+            }
 
-                // 
+            $(document).on('click','#refresh-btn',function(){
+                loadData();
+            });
+
+            $(document).ready(function(){
+                loadData();
             });
         </script>
     </body>
