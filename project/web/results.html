@@ -105,18 +105,18 @@
                                 htmlText += '<th>'+resp.data.cols[index]+'<th>';
                             });
 
-                            htmlText += '</tr></thead>';
+                            htmlText += '</tr></thead><tbody>';
                             // Iterate rows
                             Object.keys(resp.data.record).map( (value, index) =>{
-                                htmlText += '<tbody><tr>';
+                                htmlText += '<tr>';
                                 // Iterate columns
                                 Object.keys(resp.data.record[value]).map( (key) =>{
                                     // console.log(resp.data.record[value2]);
                                     htmlText += '<td>'+resp.data.record[value][key]+'<td>';
                                 });
-                                htmlText += '</tr></tbody>';
+                                htmlText += '</tr>';
                             });
-
+                            htmlText += '</tr></tbody>';
                             $('#result_table').html(htmlText);
                             setTimeout(()=>{
                                 $('#result_table').DataTable( {
