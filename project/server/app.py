@@ -33,11 +33,11 @@ def get_result():
             database="plecematepro"
         )
         
-        filter = request.args.get('filter')
+        filters = request.args.get('filter')
 
         colsStr = 'name,class,academic_performance,technical_skills,core_knowledge,puzzle_solving,programming_skills,project,internship,backlog,coding_skills,aptitude_skills,communication_skills,presentation_skills,english_proficiency,management_skills,result';
-        if(filter != "None"):
-            colsStr = filter;
+        if(filters != None):
+            colsStr = filters;
         
         cur = conn.cursor()
         cur.execute('SELECT '+colsStr+' FROM data')
