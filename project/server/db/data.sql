@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 08, 2024 at 08:14 PM
+-- Generation Time: Feb 10, 2024 at 09:19 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -50,6 +50,8 @@ CREATE TABLE IF NOT EXISTS `data` (
   `management_skills` int(11) NOT NULL,
   `training` int(11) NOT NULL,
   `result` float NOT NULL,
+  `ip_address` varchar(30) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
