@@ -13,6 +13,13 @@ app.config['JSON_SORT_KEYS'] = False
 app.json.sort_keys = False
 CORS(app)
 
+def is_numeric(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
 # 404 page
 @app.errorhandler (404)
 def not_found (error=None):
@@ -25,27 +32,34 @@ def not_found (error=None):
 @app.route('/predict', methods = ['POST'])
 def predict():
     form = request.form.values()
-    data = [x for x in form]
-
-    if(len(data) < 18):
+    data = [x for x in form if x != '']
+    
+    if len((data)) < 18:
         response = {
-            'response' : '16 inputes expected '+len(data)+' received.'
+            'response' : '17 inputes expected '+str(len(data))+' received.'
+        }
+
+        return jsonify(response), 200
+   
+    # Remove name and class fields from list    
+    predict_data = [int(e) for e in data if e not in (data[0], data[1]) or is_numeric(e)]
+    
+    if len((predict_data)) < 16:
+        response = {
+            'response' : '16 inputes expected '+str(len(predict_data))+' received.'
         }
 
         return jsonify(response), 200
 
-    # Remove name and class fields from list    
-    predict_data = [int(e) for e in data if e not in (data[0],data[1])]
-    
     try:
         # Load model
         model = pickle.load(open('predictor.pickle', 'rb'))
         
         # Predict result
         rawRes = model.predict([predict_data])
-    except Exception:
+    except Exception as error:
         return {
-            'response': 'Someting is wrong with pickle file.'
+            'response': 'Someting is wrong with pickle file. Error:'+format(error)
         }
     
     # Calculate percentage
@@ -134,6 +148,7 @@ def get_result():
         result = cursor.fetchall()
 
         # Convert string into array
+        colsStr =   colsStr.replace('_',' ')
         cols = colsStr.split(',')
 
         # Create empty dictionary for storing values
@@ -158,7 +173,7 @@ def get_result():
 
         # Close connection
         if connection.is_connected():
-                connection.close()
+            connection.close()
         
     except Exception as error:
         print("Failed to fetch records from the database. Error:"+format(error))
