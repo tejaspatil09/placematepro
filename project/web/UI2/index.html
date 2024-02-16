@@ -305,7 +305,12 @@
 
 										$('.loader').hide();
 									},1000);
-								}
+								},
+                                error: function(e){
+                                    $('.loader').hide();
+                                    alert('Someting Wents To Wrong With API!');
+                                    alert('Please check API IS Live and Try Again!')
+                                }
 							});        
                             return;
 						}
