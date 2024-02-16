@@ -185,6 +185,55 @@ def get_result():
         return jsonify(response), 200
 
 
+# Result page
+@app.route('/validate', methods=['GET'])
+def get_validate():
+    # Error handling
+    try:
+        # Accept request
+        nameField = request.args.get('name')
+        classField = request.args.get('class')
+
+        # Both fields received?
+        if nameField == None or classField == None:
+            response = {
+                'response' : {
+                    'error' : 'Input field cound error.',
+                }
+            }
+            return jsonify(response), 200
+        
+        # Making database connection 
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='plecematepro'
+        )
+
+        # Create cursor object
+        cursor = connection.cursor()
+
+        # Execute select command to fetch data
+        cursor.execute('SELECT result FROM data where name="'+nameField+'" && class="'+classField+'"')
+
+        # Fetch all records
+        result = cursor.fetchall()
+        
+        # Iterate result
+        data =  [{ 'result' : res[0] } for res in result]
+
+        response = {
+            'response' : {
+                'count' : len(data),
+                'data' : data
+            }
+        }
+        return jsonify(response), 200
+
+    except Exception as error:
+         return "" 
+    
 if __name__ == '__main__':
     
     # Start development server

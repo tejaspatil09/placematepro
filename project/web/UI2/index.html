@@ -57,7 +57,7 @@
 
         <div class="app-nav-pills container-fluid pt-2 bg-white">
             <div class="container">
-                <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
+                <ul class="nav nav-pills nav-justified" id="AppTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="step1-tab">
                             <i class="bi bi-check-circle pills-progress-ic proceed"></i>Personal details
@@ -154,7 +154,7 @@
                             <div class="col-md-6 mb-4">
                                 <div class="form-input">
                                     <label for="field8" class="form-label label">Internship</label>
-                                    <input type="number" min="0" max="100" placeholder="Enter Score In % " class="form-control input" name="internship" id="field8" required>
+                                    <input type="number" min="0" max="100" placeholder="Enter No Of Internship" class="form-control input" name="internship" id="field8" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4">
@@ -233,6 +233,27 @@
             </form>
         </div>
         <script>
+            function nextTrigger(next_tab_id,cur_tab_id){
+                $('#AppTabContent').find('.tab-pane.fade.show.active').removeClass(['active','show']);
+                $('#'+next_tab_id).addClass(['active','show']);
+                $('#'+cur_tab_id+'-tab').removeClass('active');
+                var nextTab = $('#'+next_tab_id+'-tab');
+                nextTab.addClass('active').find('.pills-progress-ic').addClass('proceed');
+            }
+
+            function returntHTML(result = 0){
+                html = '';
+                if(result > 70){
+                    html = '<i class="bi bi-emoji-heart-eyes result-pass"></i><span class="text-center text-secondary pt-2">Congratulations, you are doing well! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>';
+                }else if(result > 45){
+                    html = '<i class="bi bi-emoji-smile result-modrate"></i><span class="text-center text-secondary pt-2">You need to prepare well! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>';
+                }else{
+                    html = '<i class="bi bi-emoji-frown result-low"></i><span class="text-center text-secondary pt-2">Sorry, your need to improve your skills! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>'
+                }
+
+                return html;
+            }
+
             $(document).ready(function(){
                 $('.next_btn').click(function(){
                     var next_tab_id = $(this).attr('data-id');
@@ -245,11 +266,52 @@
                         return;
                     }
                     
-                    $('#AppTabContent').find('.tab-pane.fade.show.active').removeClass(['active','show']);
-                    $('#'+next_tab_id).addClass(['active','show']);
-                    $('#'+cur_tab_id+'-tab').removeClass('active');
-                    var nextTab = $('#'+next_tab_id+'-tab');
-                    nextTab.addClass('active').find('.pills-progress-ic').addClass('proceed');
+					if(cur_tab_id == "step1"){
+						var name = $('#field1').val();
+						var cls = $('#field2').val();
+						
+						if(name.length > 0 && cls.length > 0){
+							$.ajax({
+								url:'http:localhost:8081/validate',
+								type: 'GET',
+								dataType: 'JSON',
+								data: 'name='+name+'&class='+cls,
+								beforeSend: function(){
+									$('.loader').show();
+								},
+								success:function(resp){
+									setTimeout(function(){
+
+                                        if(resp.response.count !== undefined && resp.response.count > 0){
+                                            
+                                            alert('Prediction already calculated for user "'+name+'"!');
+                                            alert('You are redirected to result page!');
+                                            var result = resp.response.data[0].result;
+
+                                            $('.pills-progress-ic').addClass('proceed');
+
+                                            $('#AppTabContent').find('.tab-pane.active').removeClass(['active','show']);                                        
+                                            $('#AppTabContent').find('.tab-pane:last-child').addClass(['active','show']);
+
+                                            $('#AppTab').find('.nav-link.active').removeClass('active');
+                                            $('#AppTab').find('.nav-item:last-child .nav-link').addClass('active');
+
+                                            let html = returntHTML(result)
+                                            
+                                            jQuery('.final-result').html(html);
+                                        }else{
+                                            nextTrigger(next_tab_id,cur_tab_id);
+                                        }
+
+										$('.loader').hide();
+									},1000);
+								}
+							});        
+                            return;
+						}
+					}
+
+                    nextTrigger(next_tab_id,cur_tab_id);
                 });
 
                 $('.priv_btn').click(function(){
@@ -284,14 +346,7 @@
                                 if(resp.result != undefined){
                                     var result = parseInt(resp.result);
 
-                                    var html = '';
-                                    if(result > 70){
-                                        html = '<i class="bi bi-emoji-heart-eyes result-pass"></i><span class="text-center text-secondary pt-2">Congratulations, you are doing well! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>';
-                                    }else if(result > 45){
-                                        html = '<i class="bi bi-emoji-smile result-modrate"></i><span class="text-center text-secondary pt-2">You need to prepare well! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>';
-                                    }else{
-                                        html = '<i class="bi bi-emoji-frown result-low"></i><span class="text-center text-secondary pt-2">Sorry, your need to improve your skills! <br> Your placement chances are <strong>'+result+'%</strong></span><br><button class="btn btn-primary form-reload-btn mt-4 mb-5" type="reset" onclick="window.location.reload()" type="button">New Prediction</button>'
-                                    }
+                                    let html = returntHTML(result)
                                     
                                     jQuery('.final-result').html(html);
 
